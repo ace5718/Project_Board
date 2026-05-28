@@ -1,0 +1,68 @@
+---
+description: GitHub Issue specs, labels, and MCP write policy for this workspace
+alwaysApply: true
+---
+
+# GitHub Issues
+
+## Issue triage (before writing product code)
+
+**Before** editing code under `projects/<name>/` (or template files at workspace root), run this decision. State the outcome briefly (e.g. "Issue needed" / "Skip issue" / "Use existing #42").
+
+| # | Question | If yes → |
+|---|----------|----------|
+| 1 | Did the user reference an existing issue (`#42`, issue URL)? | **Do not create** — use that issue |
+| 2 | New feature or user-visible behavior change? | **Issue needed** |
+| 3 | Bug that needs reproducible steps or acceptance criteria? | **Issue needed** |
+| 4 | Touches multiple files or modules? | **Issue needed** |
+| 5 | Refactor or API change that could break callers? | **Issue needed** |
+| 6 | Only typo, single-file trivial fix, comments, or formatting? | **Skip issue** (git commit rules still apply) |
+| 7 | Unclear or mixed signals? | **Issue needed** — draft first, or ask the user |
+
+**If Issue needed and no existing issue:** draft title + five-section body in chat; **do not** create on GitHub until the user explicitly asks.
+
+**If Skip issue:** proceed with implementation; no `Fixes #n` unless the user later links one.
+
+## When to open an issue (summary)
+
+Open **before** implementation when triage says **Issue needed**. Skip when triage says **Skip issue**.
+
+## Which repository
+
+| Work | Issues live on |
+|------|----------------|
+| Code under `projects/<name>/` | That sub-project's GitHub repo |
+| Template under workspace root | This template repo |
+
+## Title
+
+- Format: `type(scope): subject` (same types as commits).
+- English, imperative, concise.
+- Before creating: review ~10 recent issue titles in the **target repo** and align with their style.
+
+## Body (five sections; 正文可用繁體中文)
+
+1. **Summary**
+2. **Problem / Goal**
+3. **Acceptance criteria** — `- [ ]` checkboxes
+4. **Out of scope**
+5. **Technical notes** (optional)
+
+## Labels
+
+Use a minimal set aligned with type: `feat`, `fix`, `docs`, `chore` (optional: `refactor`). Apply at least one label matching the issue type.
+
+## Closing issues
+
+- Prefer **PR merge** with `Fixes #<number>` or `Closes #<number>` — GitHub closes on merge.
+- Do **not** close or mark issues done unless the user explicitly asks.
+- AI must not proactively close issues.
+
+## AI / GitHub MCP
+
+- **Read** issues anytime (list, body, labels).
+- **Write** (create, update, comment, label, close) only when the user explicitly requests.
+
+Sub-projects may override in `projects/<name>/.cursor/rules/`. Copy issue templates from `templates/github/`.
+
+See skill `github-issue-workflow` for the full flow.

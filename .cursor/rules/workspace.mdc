@@ -1,0 +1,89 @@
+---
+description: Workspace-wide development conventions for this dev template
+alwaysApply: true
+---
+
+# Workspace Conventions
+
+This is a dev workspace template. Sub-projects live under `projects/` and each has its own git repo.
+
+## Scope
+
+- Keep changes minimal and focused on the requested task.
+- Match existing conventions in the sub-project you are editing.
+- Project-specific rules belong in that sub-project's `.cursor/rules/`.
+
+## Git & GitHub
+
+- **Commits:** See rule `git-commits` and skill `git-workflow`.
+- **Branches:** See rule `git-branches` and skill `git-branch-workflow`.
+- **Issues:** Triage whether an issue is needed **before** product code — see rule `github-issues` and skill `github-issue-workflow`.
+- **Pull requests:** See rule `github-pr` and skill `github-pr-workflow` (draft first; create/merge only when asked).
+- Sub-project code → git/Issues/PRs on that repo; template config → workspace root repo only.
+- AI does not commit, push, close issues, or create/merge PRs unless the user explicitly asks.
+
+## Code style
+
+- **Lint & format:** See rule `code-style` and skill `code-style-workflow`.
+- Config lives in each sub-project repo root; copy from `templates/lint/`.
+- After code changes: run lint (prefer unified `npm run lint` when it includes format).
+
+## Testing
+
+- **Tests:** See rule `testing` and skill `testing-workflow`.
+- `feat` / `fix` / `refactor` require tests; `docs` / `style` / deps bump exempt per rule.
+- After code changes: run unit/integration tests; E2E only when asked.
+- Before commit (when user asks): lint + required tests must pass.
+
+## Project structure
+
+- **Structure & naming:** See rule `project-structure` and skill `project-structure-workflow`.
+- Follow existing project layout first; use language defaults only when unclear.
+- Soft limit: 300 lines per file by default (sub-projects may override).
+
+## Environment & secrets
+
+- **Env/secrets:** See rule `env-secrets` and skill `env-secrets-workflow`.
+- Keep real `.env*` files ignored; commit only `.env.example`.
+- If env keys change, update `.env.example` in the same change set.
+- AI must not read real `.env` values by default.
+
+## Error handling
+
+- **Errors & logs:** See rule `error-handling` and skill `error-handling-workflow`.
+- For I/O code, add explicit error handling (no silent catch).
+- Keep API error responses consistent and status codes mapped.
+- Avoid `console.log` in production code; use structured logger with safe context.
+
+## Dependencies
+
+- **Dependencies:** See rule `dependency-management` and skill `dependency-workflow`.
+- New dependencies require rationale in PR/Issue.
+- Commit lock files in each sub-project repo.
+- Follow license policy and use Dependabot for monthly updates.
+
+## Documentation
+
+- **Docs:** See rule `docs-policy` and skill `docs-workflow`.
+- Each sub-project maintains an independent `README.md` with required sections.
+- API contract changes must update docs in the same PR.
+- Major architecture/security/toolchain decisions should be recorded in ADR.
+
+## AI behavior
+
+- **Global AI behavior:** See rule `ai-behavior` and skill `ai-execution-workflow`.
+- High-risk actions (install deps, delete files, edit critical config) require explicit user approval.
+- If requirements are ambiguous, ask one key clarification question first.
+- Done criteria follow change type (`feat/fix/refactor` require lint + tests, plus build when relevant).
+
+## Templates for sub-projects
+
+- Issues: `templates/github/ISSUE_TEMPLATE/` → `projects/<name>/.github/ISSUE_TEMPLATE/`
+- PRs: `templates/github/PULL_REQUEST_TEMPLATE.md` → `projects/<name>/.github/`
+- Workflows: `templates/github/workflows/` → `projects/<name>/.github/workflows/` (optional)
+- Dependabot: `templates/github/dependabot.yml.example` → `projects/<name>/.github/dependabot.yml`
+- Lint/format: `templates/lint/` → sub-project root (see `templates/lint/README.md`)
+- Tests: `templates/test/` → sub-project root (see `templates/test/README.md`)
+- Structure: `templates/structure/` → module skeletons (optional)
+- Env: `templates/env/` → sub-project root (`.env.example`, `.gitignore` merge)
+- Docs: `templates/docs/` → sub-project docs/bootstrap files

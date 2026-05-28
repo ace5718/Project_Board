@@ -1,0 +1,59 @@
+---
+description: Pull request title, body, merge, review, and AI write policy
+alwaysApply: true
+---
+
+# Pull Requests
+
+## Which repository
+
+| Work | PR target repo |
+|------|----------------|
+| Code under `projects/<name>/` | That sub-project's GitHub repo |
+| Template files at workspace root | This template repo |
+
+## Title
+
+- Format: `type(scope): subject` — same [Conventional Commits](https://www.conventionalcommits.org/) as commits and issues.
+- **English**, imperative, concise.
+- Do **not** put `#42` in the title; link issues in the body (`Fixes #42`).
+
+## Body (six sections; 正文可用繁體中文)
+
+1. **Summary** — required
+2. **Changes** — required (bullet list)
+3. **Testing** — required (what you ran)
+4. **Screenshots / Demo** — required for UI changes; backend-only may use `N/A` or omit
+5. **Related issues** — required when an issue exists (`Fixes #n` / `Closes #n`)
+6. **Checklist** — required (lint, tests, CI)
+
+Section headings in English; body text may be Traditional Chinese.
+
+## Merge (recommended; follow repo GitHub settings)
+
+- **Squash merge** into the default branch.
+- Use the **PR title** as the squash commit message.
+- **Delete branch** after merge when GitHub offers it.
+
+## Review & CI
+
+| Rule | Default |
+|------|---------|
+| Required approvals | **0** (solo); sub-projects may require 1+ in their rules or branch protection |
+| CI | **Must pass** before merge |
+| Checks | Per `.github/workflows/` — at minimum **lint** when a lint job exists (see `code-style`) |
+
+Do not merge if required checks are failing unless the user explicitly accepts the risk.
+
+## AI / GitHub MCP
+
+| Allowed anytime | Only on explicit user request |
+|-----------------|-------------------------------|
+| Read PR, diff, CI/check status | Create PR, update PR body, request review, merge |
+| Draft title + body in chat | Push branch (see `git-commits`) |
+
+Default: present a PR draft first; create or update on GitHub only when asked (e.g. "開 PR", "update the PR").
+
+**Never** merge a PR unless the user explicitly asks and CI/review rules are satisfied.
+
+Copy `templates/github/PULL_REQUEST_TEMPLATE.md` into sub-projects. See skill `github-pr-workflow`.

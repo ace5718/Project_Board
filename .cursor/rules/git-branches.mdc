@@ -1,0 +1,56 @@
+---
+description: Branch naming, default branch, protection, and lifecycle for this workspace
+alwaysApply: true
+---
+
+# Git Branches
+
+## Naming (with issue — default)
+
+Format: `<type>/issue-<number>-<slug>`
+
+- **type:** `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `ci` (align with commits)
+- **slug:** lowercase English, hyphen-separated, short (e.g. `oauth-login`)
+
+Examples: `feat/issue-42-oauth-login`, `fix/issue-108-null-user-id`
+
+Use after issue triage says **Issue needed** or when implementing an existing `#n`.
+
+## Naming (without issue — exceptions only)
+
+When issue triage says **Skip issue** (typo, single-file trivial, formatting/comments only), issue number is optional:
+
+- `docs/<slug>`
+- `chore/<slug>`
+- `style/<slug>`
+
+Types `feat`, `fix`, `refactor`, `test`, `ci` **require** `issue-<number>` in the branch name.
+
+## Default branch
+
+- New repos: use **`main`**.
+- Before checkout, PR base, or push: **detect** the repo default branch (`origin/HEAD`, `gh repo view`). If the repo still uses `master`, follow that remote default — do not rename unless the user asks.
+
+## Protected branches
+
+- **Always:** no direct push to the default branch (`main` / `master`). Work on a feature branch → PR → squash merge (see `github-pr`).
+- **Template default:** only the default branch is protected.
+- **Sub-projects** with `develop`, `staging`, or `release/*` may list extra protected branches in `projects/<name>/.cursor/rules/git-branches.mdc` (same rule: no direct push, use PR).
+
+AI must not `git push origin <default-branch>` unless the user explicitly requests it.
+
+## Lifecycle
+
+| Event | Rule |
+|-------|------|
+| PR merged | **Delete** the remote branch (GitHub “Delete branch after merge”; see `github-pr`) |
+| No activity 30+ days, not merged | Mark as **stale**, **remind** owner; do **not** auto-delete unmerged branches |
+| Local cleanup | Periodically `git fetch --prune` |
+
+Optional automation: `templates/github/workflows/stale-branches.yml.example` (reminder only).
+
+## Flow
+
+Issue → `type/issue-<n>-<slug>` → commits → PR (`Fixes #n`) → squash merge → delete branch.
+
+See skill `git-branch-workflow`.

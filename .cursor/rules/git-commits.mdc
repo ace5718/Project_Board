@@ -1,0 +1,44 @@
+---
+description: Conventional Commits, repo boundaries, and git safety for this workspace
+alwaysApply: true
+---
+
+# Git Commits
+
+## Where to commit
+
+- **Sub-projects** (`projects/<name>/`): application code — commit only inside that directory.
+- **Workspace root**: template config only (`.cursor/`, `scripts/`, `templates/`, etc.).
+- Never commit sub-project files from the workspace root repo.
+
+## Commit message format
+
+Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): subject`
+
+**Allowed types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`, `perf`, `revert`
+
+- **scope**: Infer from the primary changed path (e.g. `auth`, `api`, `web`). Use `workspace` or `template` for root template changes.
+- **subject**: English, imperative mood, ≤72 chars, no trailing period.
+- **body**: English. Optional for tiny changes; **required** for multi-file changes, behavior changes, or breaking changes (use `-` bullets). Breaking: `type(scope)!:` or `BREAKING CHANGE:` in body.
+
+## Before drafting a message
+
+In the **correct repo directory**, run `git log -5 --oneline` and match existing style.
+
+## Linking issues
+
+When work tracks a GitHub Issue, include `Fixes #<number>` (or `Closes #<number>`) in the commit message or PR description.
+
+## AI behavior
+
+- Do **not** run `git commit` or `git push` unless the user explicitly asks.
+- Draft messages first; wait for confirmation before committing.
+
+## Safety (do not run unless user explicitly requests)
+
+- `git push --force`, `git reset --hard`, `git commit --no-verify`
+- Force push to `main` / `master`
+- `git commit --amend` only if HEAD was created in this session and not pushed
+- Never commit secrets (`.env`, credentials, API keys)
+
+See skill `git-workflow` for the full step-by-step flow.

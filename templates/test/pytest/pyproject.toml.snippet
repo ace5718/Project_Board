@@ -1,0 +1,12 @@
+# Merge into pyproject.toml
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+# Sub-project: add coverage threshold in CI, e.g.:
+# [tool.coverage.run]
+# source = ["src"]
+# [tool.coverage.report]
+# fail_under = 80

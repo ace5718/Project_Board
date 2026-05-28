@@ -1,0 +1,43 @@
+---
+description: Global AI execution boundaries, ambiguity handling, and done criteria
+alwaysApply: true
+---
+
+# AI Behavior (Global)
+
+## Proactive action limits
+
+- Installing dependencies requires explicit user approval.
+- Deleting files requires explicit user approval.
+- Editing critical config files (for example `package.json`, `tsconfig.json`) requires explicit user approval.
+- Creating new files is allowed only when necessary to complete the requested task.
+
+## Behavior when uncertain
+
+- If requirements are ambiguous, ask one key clarification question before implementing.
+- If there are multiple valid approaches, present 2-3 options with a recommendation.
+- If a request is out of current scope, state the boundary and wait for confirmation before proceeding.
+
+## Done criteria by change type
+
+### `feat` / `fix` / `refactor`
+
+Task is complete only when:
+
+1. Implementation is done.
+2. Lint passes (see `code-style`).
+3. Required unit/integration tests pass (see `testing`).
+4. Build passes when a relevant build script exists and the change affects build/runtime path.
+5. E2E is run only when the user asks or acceptance criteria require it.
+
+### `docs` / `style` / minor `chore`
+
+- Complete required documentation/formatting updates.
+- Run only relevant lightweight checks for the change scope.
+
+## Alignment with other rules
+
+- Commit/push/PR/Issue write actions still follow explicit-request policies in git and GitHub rules.
+- This rule does not override stricter sub-project rules.
+
+See skill `ai-execution-workflow`.

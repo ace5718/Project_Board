@@ -1,0 +1,47 @@
+---
+description: Dependency addition, lockfile, versioning, and update automation policy
+alwaysApply: true
+---
+
+# Dependency Management
+
+## Adding dependencies
+
+- New dependencies must include rationale in Issue or PR body:
+  - why this package is needed
+  - why existing/built-in options are not enough
+  - expected impact (runtime/bundle/security)
+
+## Banned packages and license policy
+
+- Maintain a workspace denylist for known high-risk/deprecated packages.
+- Allowed-by-default licenses: `MIT`, `BSD`, `Apache-2.0`, `ISC`.
+- `GPL`/`AGPL`/`LGPL` dependencies require explicit review/approval.
+- Sub-projects may add stricter denylist/license rules.
+
+## Lock files
+
+- Lock files must be committed:
+  - `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`
+  - `poetry.lock`, `uv.lock`, etc.
+- Each sub-project maintains its own lock file(s).
+- In a JS sub-project, use one package manager consistently.
+
+## Version strategy
+
+- Use reasonable ranges (`^` or `~`) in manifest files.
+- Use lock files to pin resolved versions for reproducible installs.
+
+## Update cadence and automation
+
+- Security updates: handle immediately.
+- Routine dependency refresh: monthly.
+- Use Dependabot by default (`templates/github/dependabot.yml.example`).
+
+## PR expectations for dependency changes
+
+- Include dependency rationale.
+- Include lock file updates.
+- Confirm license policy compliance for new packages.
+
+See skill `dependency-workflow`.

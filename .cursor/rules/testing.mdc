@@ -1,0 +1,55 @@
+---
+description: Test coverage expectations, frameworks by stack, and AI test behavior
+alwaysApply: true
+---
+
+# Testing
+
+## When tests are required
+
+| Change | New tests | Run tests before delivery |
+|--------|-----------|---------------------------|
+| `feat`, `fix`, `refactor` (behavior) | **Required** (unit or integration) | **Yes** (unit/integration) |
+| `docs`, `style` | No | No |
+| `chore` (non-deps) | Usually no | Smoke if scripts exist |
+| `chore(deps)` / dependency bump | No new tests if CI passes | Run existing suite / CI |
+
+Align with issue triage and branch naming exemptions (`docs/`, `chore/`, `style/`).
+
+## Coverage threshold
+
+- No global % threshold in this template.
+- Sub-projects may set thresholds in CI or `projects/<name>/.cursor/rules/testing.mdc`.
+
+## Frameworks (detect per repo)
+
+| Stack | Default (new) | Use existing if present |
+|-------|---------------|-------------------------|
+| JS/TS | Vitest | Jest |
+| Python | pytest | — |
+| Go | `go test` | — |
+| E2E | Playwright (suggested) | Cypress or Playwright |
+| API testing | Postman MCP (optional) | Existing Postman/Newman flow |
+
+Config files live in the **sub-project repo root** (`vitest.config.*`, `jest.config.*`, `pyproject.toml`, `playwright.config.*`). Copy starters from `templates/test/`.
+
+Sub-projects may use different frameworks; follow that repo's scripts and config.
+
+## API testing with Postman MCP
+
+- Postman MCP may be used for API contract smoke checks and regression checks.
+- Use it when:
+  - user explicitly asks for Postman-based API validation, or
+  - acceptance criteria requires API response verification via Postman collection/workspace.
+- Prefer project-native test scripts first; Postman MCP is complementary, not a replacement for unit/integration tests.
+
+## AI behavior
+
+1. For `feat` / `fix` / `refactor`: **write or update tests** in the same change set when implementing.
+2. After code changes: run **unit/integration** tests (prefer `npm test`, `pnpm test`, `pytest`, `go test` from project scripts).
+3. **E2E** (Playwright, Cypress): run only when the user explicitly asks or AC requires it.
+4. **API tests (Postman MCP/Newman)**: run when requested or when AC specifically requires API collection checks.
+5. Before the user requests **commit**: ensure **lint** (`code-style-workflow`) and **relevant tests** pass (exempt types above).
+6. Do not add test dependencies or CI jobs unless the user asks.
+
+See skill `testing-workflow`.

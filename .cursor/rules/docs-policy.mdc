@@ -1,0 +1,60 @@
+---
+description: README, API docs, and ADR conventions across sub-projects
+alwaysApply: true
+---
+
+# Documentation Rules
+
+## README
+
+Each sub-project must keep an independent `README.md` with these required sections:
+
+1. **Project Overview**
+2. **Installation / Setup**
+3. **Run / Start**
+4. **Environment Variables** (link to `.env.example`)
+5. **Testing** (basic commands)
+
+Headings should be in English. Body text may be Traditional Chinese.
+
+## API docs (default; sub-projects may override)
+
+- Default tool: **OpenAPI / Swagger**.
+- API contract changes must update docs in the **same PR**.
+- Recommended locations:
+  - `docs/api/openapi.yaml`, or
+  - `openapi.yaml` at repo root with README link.
+- Sub-projects may use Postman or mixed strategy, but docs should stay under `docs/` and be discoverable from README.
+
+## ADR (Architecture Decision Records)
+
+ADR is enabled for significant decisions.
+
+- Location: `docs/adr/`
+- Naming: `0001-title.md`, `0002-title.md`, ...
+- Suggested sections:
+  - Title
+  - Status (`proposed`, `accepted`, `deprecated`, `superseded`)
+  - Context
+  - Decision
+  - Consequences
+  - Alternatives
+
+## Decisions that require ADR (baseline B)
+
+1. Major architecture changes (boundaries, module split, communication style)
+2. Breaking API contract changes
+3. Security strategy changes (auth, secret handling, encryption approach)
+4. Primary toolchain changes (e.g. ESLint→Biome, Jest→Vitest, CI pipeline model)
+
+Minor docs/style/chore changes usually do not require ADR.
+
+## PR expectation for docs
+
+If applicable, PR should include:
+
+- docs updated
+- API docs updated (if API changed)
+- ADR added/updated (if major decision)
+
+See skill `docs-workflow`.

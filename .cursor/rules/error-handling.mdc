@@ -1,0 +1,68 @@
+---
+description: API error response, logging levels, and minimum error-handling standards
+alwaysApply: true
+---
+
+# Error Handling Conventions
+
+## API errors (default; sub-projects may override)
+
+- Default response envelope:
+  ```json
+  {
+    "error": {
+      "code": "ERROR_CODE",
+      "message": "Human-readable message",
+      "details": {}
+    }
+  }
+  ```
+- `code`: stable machine-readable identifier (English upper snake case).
+- `message`: default English; sub-projects may localize.
+- Never return stack traces, SQL errors, or secret values to clients.
+
+## HTTP status code mapping (default core set)
+
+| Scenario | Status |
+|----------|--------|
+| Bad request / malformed payload | `400` |
+| Unauthenticated | `401` |
+| Authenticated but forbidden | `403` |
+| Resource not found | `404` |
+| Conflict / duplicate / version conflict | `409` |
+| Validation failed | `422` |
+| Rate limited | `429` |
+| Unexpected server error | `500` |
+| Temporarily unavailable | `503` |
+
+Sub-projects may add stricter mappings.
+
+## Logging levels (default)
+
+- `debug`: diagnostic details in development/troubleshooting.
+- `info`: important normal lifecycle events.
+- `warn`: recoverable anomalies, retries, fallbacks.
+- `error`: failures requiring attention.
+
+Production code should use a logger abstraction, not ad-hoc prints.
+
+## Production logging policy
+
+- Default: no `console.log` in production code.
+- Avoid logging sensitive data (tokens, passwords, credentials, PII).
+- Include useful context (request id, module, operation), not raw secrets.
+
+## AI behavior
+
+For I/O-related code (API, DB, file, network), AI must add error handling.
+
+Minimum standard checklist:
+
+1. No silent catch/swallow.
+2. Separate expected/domain errors from unexpected/system errors.
+3. Return/throw with standardized error `code` and mapped status.
+4. Log failures at appropriate level with safe context.
+5. Add at least one error-path test for `feat` / `fix` / `refactor` changes.
+6. Keep client-facing messages safe and non-sensitive.
+
+See skill `error-handling-workflow`.

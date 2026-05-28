@@ -1,0 +1,6 @@
+# Project registry for this workspace
+# Format: name | local_path | git_url | branch(optional)
+#
+# Lines starting with # are ignored.
+# Example:
+# my-app | projects/my-app | https://github.com/you/my-app.git | main

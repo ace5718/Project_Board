@@ -1,0 +1,49 @@
+---
+description: File/folder naming and module placement conventions across sub-projects
+alwaysApply: true
+---
+
+# File and Folder Structure
+
+## Naming conventions (default)
+
+Use repo-native naming first. If a repo has no clear convention yet, use:
+
+| Context | File naming | Folder naming |
+|--------|-------------|---------------|
+| JS/TS general | `kebab-case` | `kebab-case` |
+| React components | `PascalCase.tsx` | `kebab-case` for folders |
+| Python | `snake_case.py` | `snake_case` |
+
+React component file name should match component symbol (e.g. `UserCard.tsx`).
+
+## Module placement
+
+- Place new modules next to existing similar modules in the same repo.
+- Do not create parallel root structures when a project already has one.
+- Typical patterns (follow existing repo first):
+  - Frontend: `src/features/<feature>/` or existing `app/`, `pages/`, `modules/`
+  - Backend: existing `src/modules/<name>/`, `routes/`, or service folders
+  - Python: existing package/module layout under `src/` or `app/`
+
+## `index.ts` / `index.js` (barrel) usage
+
+- Default: use barrels **sparingly** for public module entry points only.
+- Avoid deep or chained barrel exports that hide dependencies.
+- Sub-projects may override this rule in `projects/<name>/.cursor/rules/`.
+
+## File size guidance
+
+- Soft limit: **300 lines per file** (default).
+- If a file grows beyond the limit, prefer splitting by responsibility.
+- Sub-projects may define different limits in their own rules.
+
+## AI behavior
+
+Before creating new files/folders:
+
+1. Scan nearby structure and naming in the target repo.
+2. For substantial changes/new modules, briefly state planned location before editing.
+3. Do not create new top-level app folders unless explicitly requested.
+
+See skill `project-structure-workflow`.

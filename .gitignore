@@ -1,0 +1,18 @@
+# Local MCP config (contains API keys)
+.cursor/mcp.json
+.cursor/mcp.env
+
+# Local env files (workspace/template)
+.env
+.env.local
+.env.*
+!.env.example
+
+# Sub-projects — each has its own git repo
+projects/*
+!projects/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp

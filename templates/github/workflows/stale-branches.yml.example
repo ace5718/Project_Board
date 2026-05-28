@@ -1,0 +1,54 @@
+# Optional: copy to projects/<name>/.github/workflows/stale-branches.yml
+# Lists remote branches with no commits for 30+ days. Does NOT delete branches.
+
+name: Stale branch reminder
+
+on:
+  schedule:
+    - cron: '0 2 * * 1' # Weekly, Monday 02:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Report stale branches (30 days)
+        shell: bash
+        env:
+          STALE_DAYS: 30
+        run: |
+          set -euo pipefail
+          CUTOFF=$(date -u -d "${STALE_DAYS} days ago" +%s)
+          PROTECTED='^(main|master|develop|staging)$'
+
+          echo "## Stale branches (no commits for ${STALE_DAYS}+ days)" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "_Reminder only — branches are not deleted automatically._" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          FOUND=0
+          git fetch origin --prune
+
+          while read -r branch unix_ts; do
+            [[ "$branch" =~ $PROTECTED ]] && continue
+            if [[ "$unix_ts" -lt "$CUTOFF" ]]; then
+              echo "- \`${branch}\`" >> "$GITHUB_STEP_SUMMARY"
+              FOUND=1
+            fi
+          done < <(
+            git for-each-ref refs/remotes/origin \
+              --format='%(refname:short) %(committerdate:unix)' \
+            | sed 's|^origin/||'
+          )
+
+          if [[ "$FOUND" -eq 0 ]]; then
+            echo "_No stale branches found._" >> "$GITHUB_STEP_SUMMARY"
+          fi

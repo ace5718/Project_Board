@@ -1,0 +1,44 @@
+---
+description: Linter and formatter tools, config placement, and pre-delivery checks
+alwaysApply: true
+---
+
+# Code Style (Lint & Format)
+
+## Tooling by language
+
+| Stack | Linter | Formatter | Config files (sub-project repo root) |
+|-------|--------|-----------|--------------------------------------|
+| JS/TS (new) | Biome | Biome | `biome.json` |
+| JS/TS (existing ESLint) | ESLint | Prettier | `eslint.config.*` + `prettier.config.*` |
+| Python | Ruff | Ruff (`ruff format`) | `pyproject.toml` |
+
+Do not put tool config in `.cursor/` — only rules and skills live there.
+
+## Template defaults (new projects)
+
+Copy from `templates/lint/` into the sub-project root. Default style:
+
+| | JS/TS (Biome / Prettier) | Python (Ruff) |
+|--|--------------------------|---------------|
+| Indent | 2 spaces | 4 spaces |
+| Quotes | single | single (format) |
+| Semicolons | yes (JS/TS) | — |
+| Line width | 100 | 88 |
+
+Sub-projects may override via their own config files or `projects/<name>/.cursor/rules/`. Every sub-project must have linter + formatter config — no unconfigured repos.
+
+## AI: before delivery (after code changes)
+
+Work in `projects/<name>/` (or workspace root for template-only edits).
+
+1. Detect stack: `biome.json` → Biome; `eslint.config.*` → ESLint + Prettier; `pyproject.toml` with `[tool.ruff]` → Ruff.
+2. If `package.json` / `pyproject.toml` defines a **`lint` script that includes format check** → run that script first (`npm run lint`, etc.).
+3. Otherwise run format then lint:
+   - Biome: `npx @biomejs/biome format --write .` then `npx @biomejs/biome check .`
+   - Prettier + ESLint: `npx prettier --write .` then `npm run lint` / `npx eslint .`
+   - Ruff: `ruff format .` then `ruff check .`
+4. Fix reported issues or explain blockers to the user.
+5. Do not install pre-commit hooks unless the user asks; templates are optional.
+
+See skill `code-style-workflow` for steps and copy commands.
