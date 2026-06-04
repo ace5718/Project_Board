@@ -46,6 +46,7 @@ ADR is enabled for significant decisions.
 2. Breaking API contract changes
 3. Security strategy changes (auth, secret handling, encryption approach)
 4. Primary toolchain changes (e.g. ESLint→Biome, Jest→Vitest, CI pipeline model)
+5. Versioning / release policy changes (SemVer rules, `1.0.0` criteria, release automation)
 
 Minor docs/style/chore changes usually do not require ADR.
 

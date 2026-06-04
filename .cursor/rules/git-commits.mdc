@@ -19,7 +19,7 @@ Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): 
 
 - **scope**: Infer from the primary changed path (e.g. `auth`, `api`, `web`). Use `workspace` or `template` for root template changes.
 - **subject**: English, imperative mood, ≤72 chars, no trailing period.
-- **body**: English. Optional for tiny changes; **required** for multi-file changes, behavior changes, or breaking changes (use `-` bullets). Breaking: `type(scope)!:` or `BREAKING CHANGE:` in body.
+- **body**: English. Optional for tiny changes; **required** for multi-file changes, behavior changes, or breaking changes (use `-` bullets). Breaking: `type(scope)!:` or `BREAKING CHANGE:` in body — drives SemVer bump (see rule `release`).
 
 ## Before drafting a message
 

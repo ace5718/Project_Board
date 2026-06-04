@@ -33,6 +33,7 @@ Section headings in English; body text may be Traditional Chinese.
 
 - **Squash merge** into the default branch.
 - Use the **PR title** as the squash commit message.
+- Squash messages are the primary **changelog input** for releases (see rule `release`, skill `release-workflow`).
 - **Delete branch** after merge when GitHub offers it.
 
 ## Review & CI

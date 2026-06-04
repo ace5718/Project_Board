@@ -1,0 +1,65 @@
+---
+description: SemVer, Git tags, GitHub Releases, release notes, and AI write policy
+alwaysApply: true
+---
+
+# Release & Versioning
+
+## Which repository
+
+| Work | Tags / Releases live on |
+|------|-------------------------|
+| Code under `projects/<name>/` | That sub-project's GitHub repo |
+| Template at workspace root | This template repo |
+
+Tag the **default branch** commit after merge (usually `main`). Do not tag feature branches.
+
+## Version format (SemVer)
+
+- GitHub tag / Release: `v{MAJOR}.{MINOR}.{PATCH}` (e.g. `v1.4.2`)
+- Manifests (`package.json`, etc.): same numbers **without** `v` (e.g. `1.4.2`)
+- Standard: [semver.org](https://semver.org)
+
+## Bump rules (from Conventional Commits)
+
+| Bump | Triggers | Example |
+|------|----------|---------|
+| PATCH | `fix`, `chore(deps)`, `docs`, `style` | `v0.7.1` → `v0.7.2` |
+| MINOR | `feat`, `refactor` (API unchanged) | `v0.7.0` → `v0.8.0` (PATCH → 0) |
+| MAJOR | `type(scope)!` or `BREAKING CHANGE` footer | `v0.7.0` → `v1.0.0` (MINOR/PATCH → 0) |
+
+### `0.x.x` (initial development)
+
+- Breaking change → **MINOR +1**, not MAJOR (until `1.0.0`).
+- Promote to `1.0.0` when: core features stable, docs/tests in place, public API unlikely to churn (sub-project may document criteria in ADR).
+
+### Pre-release
+
+`v1.0.0-alpha.1`, `v1.0.0-beta.1`, `v1.0.0-rc.1` — internal / external / RC only; final drop the suffix.
+
+## Tag naming
+
+| OK | Not OK |
+|----|--------|
+| `v1.4.2` | `V1.4.2`, `version-1.4.2`, `release-1.4.2` |
+
+Published tags are **immutable** — do not retag or force-move.
+
+## Release notes
+
+Group squash-merged commits (PR title = squash message) by type. Headings: Features, Bug Fixes, Breaking Changes, Chores. Optional automation: `release-please`, `semantic-release`.
+
+## When to tag
+
+Tag when: deployable milestone, hotfix, sprint end. **Do not** tag every commit or every PR merge.
+
+## AI behavior
+
+| Action | Policy |
+|--------|--------|
+| Suggest next version / draft release notes | Allowed from commits since last tag |
+| Create git tag or GitHub Release | **Explicit user request only** |
+| Edit published release notes | Explicit request only |
+| Delete or move published tag | **Forbidden** |
+
+See skill `release-workflow`. Sub-projects may override in `projects/<name>/.cursor/rules/`. Major versioning policy changes → ADR under `docs/adr/`.

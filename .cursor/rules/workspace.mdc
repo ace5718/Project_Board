@@ -19,8 +19,9 @@ This is a dev workspace template. Sub-projects live under `projects/` and each h
 - **Branches:** See rule `git-branches` and skill `git-branch-workflow`.
 - **Issues:** Triage whether an issue is needed **before** product code — see rule `github-issues` and skill `github-issue-workflow`.
 - **Pull requests:** See rule `github-pr` and skill `github-pr-workflow` (draft first; create/merge only when asked).
+- **Releases & tags:** See rule `release` and skill `release-workflow` (suggest version/notes anytime; tag/release only when asked).
 - Sub-project code → git/Issues/PRs on that repo; template config → workspace root repo only.
-- AI does not commit, push, close issues, or create/merge PRs unless the user explicitly asks.
+- AI does not commit, push, close issues, create/merge PRs, or create tags/releases unless the user explicitly asks.
 
 ## Code style
 
@@ -80,6 +81,7 @@ This is a dev workspace template. Sub-projects live under `projects/` and each h
 
 - Issues: `templates/github/ISSUE_TEMPLATE/` → `projects/<name>/.github/ISSUE_TEMPLATE/`
 - PRs: `templates/github/PULL_REQUEST_TEMPLATE.md` → `projects/<name>/.github/`
+- Release notes: `templates/github/RELEASE_NOTES.example.md` (local draft for `gh release`; optional in-repo `CHANGELOG.md`)
 - Workflows: `templates/github/workflows/` → `projects/<name>/.github/workflows/` (optional)
 - Dependabot: `templates/github/dependabot.yml.example` → `projects/<name>/.github/dependabot.yml`
 - Lint/format: `templates/lint/` → sub-project root (see `templates/lint/README.md`)
