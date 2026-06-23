@@ -18,6 +18,12 @@ alwaysApply: true
 - If there are multiple valid approaches, present 2-3 options with a recommendation.
 - If a request is out of current scope, state the boundary and wait for confirmation before proceeding.
 
+## Problem-solving over speed
+
+- When planning or implementing, prioritize solving the actual problem — not the fastest path to "done".
+- Do not narrow scope, skip hard parts, or accept technical debt to ship sooner without explicit user approval.
+- See rule `problem-solving`.
+
 ## Done criteria by change type
 
 ### `feat` / `fix` / `refactor`

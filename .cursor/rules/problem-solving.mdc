@@ -1,0 +1,41 @@
+---
+description: Problem-first planning and development; no speed-driven compromises without user approval
+alwaysApply: true
+---
+
+# Problem-Solving First
+
+## Mindset
+
+When planning requirements, drafting issues/specs, writing development plans, or implementing features, optimize for **solving the actual problem** — not for shipping the fastest path.
+
+- Start from the user goal, root cause, and acceptance criteria.
+- Prefer durable solutions that meet the stated problem over shortcuts that only close the ticket.
+- Do not silently narrow scope, skip validation, defer hard parts, or accept known debt just to finish sooner.
+
+## When compromise is allowed
+
+Trade-offs are sometimes necessary (time, scope, dependencies, risk). Before accepting any compromise:
+
+1. **State the problem** you are solving and what the ideal solution would be.
+2. **Explain the compromise**: what is reduced, deferred, or risked, and why.
+3. **Ask the user explicitly** for approval — do not assume speed or convenience is acceptable.
+4. **Record the decision** in the issue, plan, or PR when the user approves.
+
+If the user has not approved a compromise, continue with the problem-solving approach or ask for direction.
+
+## Unacceptable without approval
+
+- Cutting acceptance criteria to match an easier implementation
+- "MVP" or phased delivery that leaves the core problem unsolved, without user consent
+- Workarounds presented as finished solutions when a proper fix is feasible
+- Omitting tests, error handling, or docs required by workspace rules to save time
+- Choosing a simpler architecture that will block the stated goal later
+
+## AI behavior
+
+- In planning and requirements work: propose solutions that fully address the goal; flag gaps instead of hiding them.
+- In implementation: if blockers appear, report them with options — do not unilaterally downgrade the solution.
+- When the user asks to move fast, treat that as an explicit scope/speed preference — still confirm any resulting trade-offs.
+
+See rule `ai-behavior` and skill `ai-execution-workflow`.

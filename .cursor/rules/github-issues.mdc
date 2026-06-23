@@ -48,6 +48,8 @@ Open **before** implementation when triage says **Issue needed**. Skip when tria
 4. **Out of scope**
 5. **Technical notes** (optional)
 
+Draft acceptance criteria to **solve the stated problem**, not to match the easiest implementation. Scope cuts or phased delivery require explicit user approval — see rule `problem-solving`.
+
 ## Labels
 
 Use a minimal set aligned with type: `feat`, `fix`, `docs`, `chore` (optional: `refactor`). Apply at least one label matching the issue type.

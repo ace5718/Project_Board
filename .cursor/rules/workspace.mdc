@@ -73,6 +73,7 @@ This is a dev workspace template. Sub-projects live under `projects/` and each h
 ## AI behavior
 
 - **Global AI behavior:** See rule `ai-behavior` and skill `ai-execution-workflow`.
+- **Problem-solving first:** See rule `problem-solving` — plan and build to solve the real problem; compromises require user approval.
 - High-risk actions (install deps, delete files, edit critical config) require explicit user approval.
 - If requirements are ambiguous, ask one key clarification question first.
 - Done criteria follow change type (`feat/fix/refactor` require lint + tests, plus build when relevant).
