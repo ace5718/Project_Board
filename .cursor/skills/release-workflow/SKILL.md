@@ -104,5 +104,6 @@ Do **not** `git push --force` tags. Do **not** delete or retag published version
 | Squash merge → changelog | `github-pr`, `github-pr-workflow` |
 | Breaking changes | `!` / `BREAKING CHANGE` → bump |
 | ADR | `docs-policy`, `docs-workflow` |
+| Core doc version sync (ai-chat) | Run `pnpm docs:check-version` from repo root; fix with `pnpm docs:sync-version` before tagging |
 
 More: [reference.md](reference.md)
